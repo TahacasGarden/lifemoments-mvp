@@ -1,10 +1,20 @@
 "use client";
-import { supabase } from "@/lib/supabase";
-import { useEffect } from "react";
 
-export default function Logout() {
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
+export default function LogoutPage() {
   useEffect(() => {
-    supabase.auth.signOut().then(() => location.replace("/"));
+    (async () => {
+      await supabase.auth.signOut();
+      // send them to login (or home)
+      window.location.replace("/login");
+    })();
   }, []);
-  return <main className="p-6">Signing out…</main>;
+
+  return (
+    <main className="min-h-screen grid place-items-center p-6">
+      <p className="text-sm text-muted-foreground">Signing you out…</p>
+    </main>
+  );
 }

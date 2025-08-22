@@ -36,3 +36,4 @@ Capture wisdom. Share your legacy. For the people you love.
   - TODO: integrate an email provider (Resend/Sendgrid) to actually send.
 - Export to PDF:
   - `GET /api/export/pdf?scope=all|family|public` generates a Life Book PDF.
+Deployed without pdf export Fri Aug 22 13:07:22 EDT 2025

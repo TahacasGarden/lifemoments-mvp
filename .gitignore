@@ -1,31 +1,44 @@
-# Node / Next.js
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
 .next/
 out/
-dist/
-.build/
-.cache/
-.turbo/
+
+# Vercel
 .vercel/
-coverage/
 
-# Env & local
-.env
-.env.*
-!.env.example
-
-# OS/editor
-.DS_Store
-Thumbs.db
-*.log
+# Debug / Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
-# Supabase local
-supabase/.branches
-supabase/.temp
+# OS
+.DS_Store
+Thumbs.db
 
-# Figma vendor dump (keep only files you actually serve from /public)
-vendor/
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Misc
+*.swp
+*.swo
+
+# Export PDF (removed module)
+app/api/export/

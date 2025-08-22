@@ -1,0 +1,31 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+.build/
+.cache/
+.turbo/
+.vercel/
+coverage/
+
+# Env & local
+.env
+.env.*
+!.env.example
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Supabase local
+supabase/.branches
+supabase/.temp
+
+# Figma vendor dump (keep only files you actually serve from /public)
+vendor/

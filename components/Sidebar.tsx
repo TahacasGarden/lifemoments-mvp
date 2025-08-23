@@ -172,7 +172,7 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       {/* Bottom Quick Actions */}
       {!isCollapsed && (
         <div className="p-4 border-t border-border">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Button variant="outline" size="sm" className="w-full justify-start text-xs">
               <Heart className="h-3 w-3 mr-2" />
               Invite Family
@@ -185,6 +185,34 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
               <div className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full w-1/3"></div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* User Profile & Logout */}
+      {!isCollapsed && (
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-primary-foreground">U</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground truncate">Your Account</p>
+              <p className="text-xs text-muted-foreground truncate">Memory Creator</p>
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start text-xs text-muted-foreground hover:text-foreground"
+            onClick={async () => {
+              const { supabase } = await import("@/lib/supabase");
+              await supabase.auth.signOut();
+              window.location.href = "/login";
+            }}
+          >
+            <LogOut className="h-3 w-3 mr-2" />
+            Sign Out
+          </Button>
         </div>
       )}
     </div>

@@ -408,7 +408,7 @@ export default function TabContent({ activeTab }: TabContentProps) {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6 pb-20 md:pb-6">
       {renderContent()}
     </div>
   );

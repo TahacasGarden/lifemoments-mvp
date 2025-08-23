@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useToast } from "./Toast";
 
 type Visibility = "private" | "family" | "link" | "public";
 
@@ -24,6 +25,7 @@ export default function AudioCapture({
   const [eventDate, setEventDate] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { success, error: showError } = useToast();
 
   const timerRef = useRef<number | null>(null);
 
@@ -143,10 +145,13 @@ export default function AudioCapture({
       setVisibility(defaultVisibility);
       setEventDate("");
 
+      success("Memory saved!", "Your audio memory has been successfully saved to your timeline.");
       onCreated?.();
     } catch (err: any) {
       console.error(err);
-      setError(err?.message ?? "Save failed.");
+      const message = err?.message ?? "Save failed.";
+      setError(message);
+      showError("Save failed", message);
     } finally {
       setSaving(false);
     }

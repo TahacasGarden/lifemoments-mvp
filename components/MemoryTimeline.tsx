@@ -17,6 +17,7 @@ import {
   Share2
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useToast } from "./Toast";
 
 interface Memory {
   id: string;
@@ -35,6 +36,7 @@ export default function MemoryTimeline() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [playingAudio, setPlayingAudio] = useState<string | null>(null);
+  const { success, error: showError } = useToast();
 
   useEffect(() => {
     loadMemories();
@@ -84,9 +86,14 @@ export default function MemoryTimeline() {
       })) || [];
 
       setMemories(formattedMemories);
+      if (formattedMemories.length > 0) {
+        success("Memories loaded", `Found ${formattedMemories.length} memories in your timeline.`);
+      }
     } catch (err: any) {
       console.error('Error loading memories:', err);
-      setError(err.message || 'Failed to load memories');
+      const message = err.message || 'Failed to load memories';
+      setError(message);
+      showError("Loading failed", message);
     } finally {
       setLoading(false);
     }
@@ -144,7 +151,10 @@ export default function MemoryTimeline() {
         setPlayingAudio(memory.id);
         
         audio.onended = () => setPlayingAudio(null);
-        audio.onerror = () => setPlayingAudio(null);
+        audio.onerror = () => {
+          setPlayingAudio(null);
+          showError("Playback failed", "Unable to play audio file. Please try again.");
+        };
       }
     } catch (err) {
       console.error('Error playing audio:', err);

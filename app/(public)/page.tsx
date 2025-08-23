@@ -47,13 +47,45 @@ export default function Page() {
   // Show dashboard if authenticated
   if (isAuthenticated) {
     return (
-      <div className="min-h-screen bg-background flex">
-        {/* Sidebar */}
-        <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-        
-        {/* Main Content */}
-        <div className="flex-1 overflow-y-auto">
+      <div className="min-h-screen bg-background">
+        {/* Mobile Layout */}
+        <div className="md:hidden">
           <TabContent activeTab={activeTab} />
+          {/* Mobile Bottom Navigation */}
+          <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
+            <div className="flex items-center justify-around p-2">
+              {[
+                { id: "home", icon: "🏠", label: "Home" },
+                { id: "record", icon: "🎤", label: "Record" },
+                { id: "timeline", icon: "📅", label: "Timeline" },
+                { id: "settings", icon: "⚙️", label: "Settings" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex flex-col items-center p-2 rounded-lg ${
+                    activeTab === tab.id
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  <span className="text-lg">{tab.icon}</span>
+                  <span className="text-xs mt-1">{tab.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:flex">
+          {/* Sidebar */}
+          <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+
+          {/* Main Content */}
+          <div className="flex-1 overflow-y-auto">
+            <TabContent activeTab={activeTab} />
+          </div>
         </div>
       </div>
     );

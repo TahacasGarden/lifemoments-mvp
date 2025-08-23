@@ -2,17 +2,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Heart, 
-  Mic, 
-  Video, 
-  Clock, 
-  Users, 
-  Sparkles, 
-  ArrowRight, 
-  Play, 
-  MessageCircle, 
-  Calendar, 
+import {
+  Heart,
+  Mic,
+  Video,
+  Clock,
+  Users,
+  Sparkles,
+  ArrowRight,
+  Play,
+  MessageCircle,
+  Calendar,
   Shield,
   BookOpen,
   Gift,
@@ -25,6 +25,7 @@ import {
   Share2,
   Settings
 } from "lucide-react";
+import AudioCapture from "./audio-capture";
 
 interface TabContentProps {
   activeTab: string;
@@ -156,44 +157,34 @@ export default function TabContent({ activeTab }: TabContentProps) {
               </p>
             </div>
 
-            {/* Recording Options */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-primary/20 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-2">
-                    <Mic className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle>Voice Recording</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
-                    Record audio stories, conversations, and memories. Perfect for capturing the emotion and nuance of your voice.
-                  </p>
-                  <Button className="w-full bg-gradient-to-r from-primary to-secondary">
-                    <Mic className="mr-2 h-4 w-4" />
-                    Start Audio Recording
-                  </Button>
-                </CardContent>
-              </Card>
+            {/* Working Audio Recording */}
+            <AudioCapture
+              defaultTitle="My Memory"
+              defaultVisibility="private"
+              onCreated={() => {
+                // Optional: Add success feedback
+                console.log("Audio saved successfully!");
+              }}
+            />
 
-              <Card className="border-secondary/20 hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-2">
-                    <Video className="h-6 w-6 text-secondary" />
-                  </div>
-                  <CardTitle>Video Recording</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
-                    Record video messages and stories. Capture facial expressions and gestures that make your stories come alive.
-                  </p>
-                  <Button variant="outline" className="w-full">
-                    <Video className="mr-2 h-4 w-4" />
-                    Start Video Recording
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            {/* Video Recording - Coming Soon */}
+            <Card className="border-secondary/20 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-2">
+                  <Video className="h-6 w-6 text-secondary" />
+                </div>
+                <CardTitle>Video Recording</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Record video messages and stories. Capture facial expressions and gestures that make your stories come alive.
+                </p>
+                <Button variant="outline" className="w-full" disabled>
+                  <Video className="mr-2 h-4 w-4" />
+                  Coming Soon
+                </Button>
+              </CardContent>
+            </Card>
 
             {/* Story Categories */}
             <Card>

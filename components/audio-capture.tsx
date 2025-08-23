@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "./Toast";
+import { sanitizeInput, validateMemoryContent, validateAudioFile, rateLimiter, logSecurityEvent } from "@/lib/security";
 
 type Visibility = "private" | "family" | "link" | "public";
 
@@ -98,9 +99,32 @@ export default function AudioCapture({
       return;
     }
 
+    // Rate limiting
+    if (!rateLimiter.isAllowed(`audio_save_${userId}`, 5, 60000)) { // 5 saves per minute
+      setError("Please wait before saving another audio. Rate limit exceeded.");
+      return;
+    }
+
+    // Validate content
+    const sanitizedTitle = sanitizeInput(title);
+    const validation = validateMemoryContent(sanitizedTitle);
+    if (!validation.valid) {
+      setError(validation.errors.join(', '));
+      return;
+    }
+
     setSaving(true);
     try {
       const blob = new Blob(chunks, { type: "audio/webm" });
+
+      // Validate file
+      const file = new File([blob], 'audio.webm', { type: 'audio/webm' });
+      const fileValidation = validateAudioFile(file);
+      if (!fileValidation.valid) {
+        throw new Error(fileValidation.error);
+      }
+
+      logSecurityEvent('audio_save_attempt', { userId, titleLength: sanitizedTitle.length, fileSize: blob.size });
 
       const id = crypto.randomUUID();
       const storagePath = `${userId}/${id}.webm`;
@@ -117,7 +141,7 @@ export default function AudioCapture({
         .from("entries")
         .insert({
           user_id: userId,
-          title: title || "Voice Note",
+          title: sanitizedTitle || "Voice Note",
           visibility,
           event_date: eventDate || null,
           content: null,

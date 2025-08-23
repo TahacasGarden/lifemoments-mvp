@@ -2,6 +2,8 @@ import "./global.css";
 import type { Metadata } from "next";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ToastProvider } from "@/components/Toast";
+import { Analytics } from "@/components/Analytics";
+import FeedbackWidget from "@/components/FeedbackWidget";
 
 export const metadata: Metadata = {
   title: "LifeMoments",
@@ -14,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-background text-foreground">
         <ErrorBoundary>
           <ToastProvider>
+            <Analytics />
             {children}
+            <FeedbackWidget />
           </ToastProvider>
         </ErrorBoundary>
       </body>

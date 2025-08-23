@@ -26,6 +26,7 @@ import {
   Settings
 } from "lucide-react";
 import AudioCapture from "./audio-capture";
+import MemoryTimeline from "./MemoryTimeline";
 
 interface TabContentProps {
   activeTab: string;
@@ -215,30 +216,7 @@ export default function TabContent({ activeTab }: TabContentProps) {
         );
 
       case "timeline":
-        return (
-          <div className="space-y-8">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold mb-4">Your Memory Timeline</h1>
-              <p className="text-lg text-muted-foreground">
-                Explore your collected memories organized chronologically and by themes.
-              </p>
-            </div>
-
-            <Card>
-              <CardContent className="p-8 text-center">
-                <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Your Timeline Awaits</h3>
-                <p className="text-muted-foreground mb-6">
-                  Once you start recording stories, they'll appear here in a beautiful timeline format.
-                </p>
-                <Button className="bg-gradient-to-r from-primary to-secondary">
-                  <Mic className="mr-2 h-4 w-4" />
-                  Record Your First Story
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        );
+        return <MemoryTimeline />;
 
       case "legacy":
         return (

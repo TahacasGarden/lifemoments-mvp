@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Home, 
-  Mic, 
-  Calendar, 
-  Users, 
-  Settings, 
+import {
+  Home,
+  Mic,
+  Calendar,
+  Users,
+  Settings,
   Heart,
   Sparkles,
   ChevronLeft,
@@ -16,7 +16,8 @@ import {
   Play,
   BookOpen,
   Share2,
-  Trophy
+  Trophy,
+  LogOut
 } from "lucide-react";
 import Link from "next/link";
 

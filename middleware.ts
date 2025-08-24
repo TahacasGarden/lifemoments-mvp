@@ -1,24 +1,34 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { securityHeaders } from './lib/security';
 
-const PROTECTED = [/^\/dashboard/, /^\/entries\//];
+export function middleware(request: NextRequest) {
+  // Apply security headers to all responses
+  const response = NextResponse.next();
 
-export function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();
-  const pathname = url.pathname;
+  // Add security headers
+  Object.entries(securityHeaders).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
 
-  const isProtected = PROTECTED.some((re) => re.test(pathname));
-  const hasSupabaseSession =
-    req.cookies.has("sb-access-token") || req.cookies.has("sb-refresh-token") ||
-    req.cookies.has("sb:token") || req.cookies.has("sb-") || false;
-
-  if (isProtected && !hasSupabaseSession) {
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+  // Additional security measures for API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    // Rate limiting headers
+    response.headers.set('X-RateLimit-Limit', '100');
+    response.headers.set('X-RateLimit-Remaining', '99');
+    
+    // CORS headers for API
+    response.headers.set('Access-Control-Allow-Origin', request.headers.get('origin') || '*');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   }
-  return NextResponse.next();
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/entries/:path*"],
+  matcher: [
+    // Apply to all routes except static files
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 };

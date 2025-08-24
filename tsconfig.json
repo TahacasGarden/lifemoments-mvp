@@ -27,7 +27,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": [
     "next-env.d.ts",
@@ -38,10 +39,4 @@
   "exclude": [
     "node_modules"
   ]
-}
-{
-  "compilerOptions": {
-    // ...
-    "typeRoots": ["./types", "./node_modules/@types"]
-  }
 }

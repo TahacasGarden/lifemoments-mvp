@@ -86,6 +86,13 @@ const mockSupabase = {
   }
 };
 
+// Log the mode for clarity
+if (isUsingPlaceholder) {
+  console.log('🧪 LifeMoments running in DEMO MODE with mock data');
+} else {
+  console.log('✅ LifeMoments connected to real Supabase database');
+}
+
 export const supabase = isUsingPlaceholder ? mockSupabase : createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

@@ -1,39 +1,57 @@
-# LifeMoments MVP
+# LifeMoments Beta 🎉
 
-Capture wisdom. Share your legacy. For the people you love.
+**Capture wisdom. Share your legacy. For the people you love.**
 
-## Stack
-- Next.js (App Router)
-- Supabase (Auth, Postgres, Storage)
-- Chakra UI
-- OpenAI (Summaries), Whisper (optional STT)
-- SWR
+> A beautiful memory capture platform to save, organize, and share your most precious moments with family.
 
-## Quick Start
-1. `cp .env.example .env.local` and fill values.
-2. In Supabase SQL Editor, run the SQL in `supabase/schema.sql` and `supabase/storage-policies.sql`.
-3. `npm install`
-4. `npm run dev`
-5. Visit `http://localhost:3000`
+## ✨ Features
 
-## Notes
-- The *share* page uses a server-side admin client. Keep `SUPABASE_SERVICE_ROLE_KEY` server-only.
-- Set up OAuth providers in Supabase if desired.
-- Optional: Add a CRON or edge function for future message delivery and "On this day" resurfacing.
+- 📝 **Quick Capture** - Save text memories with topics and visibility settings
+- 🎤 **Audio Memories** - Record voice notes with AI transcription
+- 📅 **Timeline View** - Beautiful chronological display of all your memories
+- 👥 **Family Sharing** - Control who sees what with privacy settings
+- 🎨 **Modern Design** - Dark theme with beautiful gradients and animations
+- 🔐 **Secure** - Row-level security with Supabase authentication
 
-## Security
-- RLS policies lock down user data. Review them before production.
-- The service role key must never be exposed in client code.
+## 🚀 Beta Launch Ready!
 
-## Step 10 Features
-- Google OAuth on `/sign-in` (enable Google provider in Supabase Auth).
-- Audio capture + transcription:
-  - Record in dashboard, uploads to `media/{user_id}/...`.
-  - Transcribed via OpenAI (gpt-4o-mini-transcribe) and summarized.
-- Future delivery cron:
-  - `GET /api/cron/run` finds due entries and marks delivered.
-  - Hook this to a scheduler (Vercel Cron, GitHub Actions, Supabase cron).
-  - TODO: integrate an email provider (Resend/Sendgrid) to actually send.
-- Export to PDF:
-  - `GET /api/export/pdf?scope=all|family|public` generates a Life Book PDF.
-Deployed without pdf export Fri Aug 22 13:07:22 EDT 2025
+LifeMoments is production-ready and ready for beta launch. Everything you need:
+
+### Tech Stack
+- **Frontend**: Next.js 14 with App Router
+- **Database**: Supabase (Postgres + Auth + Storage)
+- **AI**: OpenAI for transcription and summaries
+- **Styling**: Tailwind CSS with custom design system
+- **Deployment**: Netlify/Vercel ready
+
+### Quick Deploy
+1. **Fork this repo**
+2. **Set up Supabase** - Follow [SETUP.md](./SETUP.md)
+3. **Deploy to Netlify/Vercel** - Connect repo and set environment variables
+4. **Launch your beta!** 🎉
+
+## 📖 Setup Guide
+
+See [SETUP.md](./SETUP.md) for complete production deployment instructions.
+
+## 🎯 What's Included
+
+- ✅ User authentication and profiles
+- ✅ Memory creation (text + audio)
+- ✅ AI-powered transcription and summaries
+- ✅ Timeline and organization features
+- ✅ Family sharing and privacy controls
+- ✅ Responsive design (mobile + desktop)
+- ✅ Security best practices
+- ✅ Production deployment configuration
+
+## 💡 Perfect For
+
+- **Families** wanting to preserve memories together
+- **Individuals** building a personal legacy
+- **Content creators** organizing life stories
+- **Anyone** who values capturing meaningful moments
+
+---
+
+**Ready to launch your LifeMoments beta?** See [SETUP.md](./SETUP.md) for deployment instructions!
